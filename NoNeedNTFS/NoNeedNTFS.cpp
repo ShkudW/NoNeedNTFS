@@ -603,7 +603,9 @@ int main(int argc, char* argv[]) {
             break;
         }
 
-
+        if (i % 1000 == 0 && i > 0) {
+            printf("  Reading %d entries... (found %d/%d)\n", actual_entry, found_count, enabled_count);
+        }
         char filename[256] = { 0 };
         if (FindFileName(mft_entry, filename, sizeof(filename))) {
             const MFT_ENTRY_HEADER* header = (const MFT_ENTRY_HEADER*)mft_entry;
@@ -632,4 +634,5 @@ int main(int argc, char* argv[]) {
 
     return (found_count == enabled_count) ? 0 : 1;
 }
+
 
