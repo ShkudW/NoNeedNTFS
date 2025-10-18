@@ -6,8 +6,6 @@
 #include <string.h>
 
 #pragma pack(push, 1)
-
-
 struct GPT_HEADER {
     BYTE Signature[8];
     DWORD Revision;
@@ -124,7 +122,6 @@ struct FILE_NAME_ATTRIBUTE {
     BYTE NamespaceType;
     WCHAR FileName[1];
 };
-
 #pragma pack(pop)
 
 
@@ -635,3 +632,4 @@ int main(int argc, char* argv[]) {
 
     return (found_count == enabled_count) ? 0 : 1;
 }
+
