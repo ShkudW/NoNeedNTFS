@@ -872,7 +872,7 @@ int main(int argc, char* argv[]) {
         const char* type = info.is_directory ? "DIR" : "FILE";
 
         if (i % 10000 == 0 && i > 0) {
-            fprintf(stderr, "[AB-InBev] Scanned entry %d, found %d valid entries\n", i, found);
+            fprintf(stderr, "[Where Are You ..] Scanned entry %d, found %d valid entries\n", i, found);
             if (sami && sysi && seci) {
                 printf("\n[+] Yalla Bye!.\n");
                 break;
@@ -928,4 +928,5 @@ int main(int argc, char* argv[]) {
     CloseHandle(hDisk);
     return 0;
 }
+
 
