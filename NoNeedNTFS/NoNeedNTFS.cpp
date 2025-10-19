@@ -880,7 +880,7 @@ int main(int argc, char* argv[]) {
         }
         //if (i % 10000 == 0 && i > 0) {
         //    fprintf(stderr, "[AB-InBev] Scanned entry %d, found %d valid entries\n", i, found);
-        //    if (sami && ntdi) {
+        //    if (sysi && ntdi) {
         //        printf("\n[+] Yalla Bye!.\n");
         //        break;
         //    }
@@ -928,5 +928,6 @@ int main(int argc, char* argv[]) {
     CloseHandle(hDisk);
     return 0;
 }
+
 
 
