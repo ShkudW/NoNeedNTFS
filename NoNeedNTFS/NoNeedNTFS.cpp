@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-// This tool crated by Shakudw
+// This tool crated by Shkudw
 // https://github.com/ShkudW/NoNeedNTFS
 
 #include <windows.h>
@@ -928,3 +928,4 @@ int main(int argc, char* argv[]) {
     CloseHandle(hDisk);
     return 0;
 }
+
