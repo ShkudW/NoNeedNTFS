@@ -819,7 +819,6 @@ int main(int argc, char* argv[]) {
     ULONGLONG mft_record_size = GetMFTRecordSizeFromClusters(boot.ClustersPerMFTRecord, g_BytesPerSector, g_SectorsPerCluster);
     g_MFTEntrySize = mft_record_size;
 
-    printf("\n[Step 2] NTFS Parameters:\n");
     printf("  Bytes Per Sector: %llu\n", g_BytesPerSector);
     printf("  Sectors Per Cluster: %llu\n", g_SectorsPerCluster);
     printf("  Cluster Size: %llu bytes\n", g_ClusterSize);
@@ -829,7 +828,6 @@ int main(int argc, char* argv[]) {
     printf("[Step 3] Building $MFT runlist from entry 0...\n");
     if (!BuildMFTRunlistFromEntry0(hDisk, mft_record_size)) {
         printf("[!] Could not build runlist from entry 0\n");
-        printf("    Trying fallback: assume contiguous MFT...\n");
 
         DataRun r;
         r.vcn_start = 0;
